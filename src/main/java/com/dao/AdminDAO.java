@@ -205,7 +205,7 @@ public class AdminDAO {
 	}
 	
 	public void insertRoom(RoomVO vo) {
-
+		System.out.println("insertRoom실행");
 	    Connection conn = null;
 	    PreparedStatement ps = null;
 
@@ -232,4 +232,38 @@ public class AdminDAO {
 	    }
 	}
 	
+	public int insertRoomImage(
+            int roomNo,
+            String imagePath,
+            String isMain,
+            int displayOrder)  {
+		System.out.println("insertRoomImage실행");
+		String sql = "INSERT INTO room_image "
+		+ "(room_no, image_path, is_main, display_order, created_at) "
+		+ "VALUES (?, ?, ?, ?, NOW())";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, roomNo);
+			ps.setString(2, imagePath);
+			ps.setString(3, isMain);
+			ps.setInt(4, displayOrder);
+			
+			result = ps.executeUpdate();
+			commit(conn);
+		}catch(Exception e) {
+			e.printStackTrace();
+			rollback(conn);
+		} finally {
+			close(ps);
+	        close(conn);
+		}
+		
+		return result;
+		}
 }

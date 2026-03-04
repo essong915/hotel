@@ -33,9 +33,6 @@ public class AdminRoomInsertController implements Action {
             if (filePart != null && filePart.getSize() > 0) {
 
                 String originalFileName = filePart.getSubmittedFileName();
-                savedFileName = UUID.randomUUID() + "_" + originalFileName;
-
-                filePart.write(uploadPath + File.separator + savedFileName);
                 File uploadDir = new File(uploadPath);
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();
@@ -66,10 +63,21 @@ public class AdminRoomInsertController implements Action {
             vo.setRoom_location(room_location);
             vo.setRoom_description(room_description);
             vo.setRoom_image(savedFileName);
-
+            System.out.println("savedFileName : "+savedFileName);
             AdminDAO dao = new AdminDAO(request.getServletContext());
             dao.insertRoom(vo);
+         // 2️⃣ room_image 저장
+            if (savedFileName != null) {
 
+                String imagePath = "/upload/room/" + savedFileName;
+
+                dao.insertRoomImage(
+                        room_no,
+                        imagePath,
+                        "Y",    // 대표이미지
+                        1       // 순서
+                );
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
