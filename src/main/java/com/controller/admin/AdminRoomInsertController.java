@@ -19,23 +19,16 @@ public class AdminRoomInsertController implements Action {
 
         try {
 
-            // 1️⃣ 기본 데이터 받기
             int room_no = Integer.parseInt(request.getParameter("room_no"));
             String room_name = request.getParameter("room_name");
             String capacity = request.getParameter("capacity");
             String room_location = request.getParameter("room_location");
             String room_description = request.getParameter("room_description");
 
-            // 2️⃣ 파일 업로드 처리
             Part filePart = request.getPart("room_img");
 
             String uploadPath = "C:/hotelUploads/room";
 
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-            
             String savedFileName = filePart.getSubmittedFileName();
             if (filePart != null && filePart.getSize() > 0) {
 
@@ -43,9 +36,29 @@ public class AdminRoomInsertController implements Action {
                 savedFileName = UUID.randomUUID() + "_" + originalFileName;
 
                 filePart.write(uploadPath + File.separator + savedFileName);
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+                File targetFile = new File(uploadPath, originalFileName);
+
+                if (targetFile.exists()) {
+                    String extension = "";
+                    int dotIndex = originalFileName.lastIndexOf(".");
+                    if (dotIndex != -1) {
+                        extension = originalFileName.substring(dotIndex);
+                        originalFileName = originalFileName.substring(0, dotIndex);
+                    }
+
+                    savedFileName = originalFileName + "_" + UUID.randomUUID() + extension;
+                } else {
+                    savedFileName = originalFileName;
+                }
+
+                filePart.write(uploadPath + File.separator + savedFileName);
+            
             }
 
-            // 3️⃣ VO 세팅
             RoomVO vo = new RoomVO();
             vo.setRoom_no(room_no);
             vo.setRoom_name(room_name);
@@ -54,19 +67,12 @@ public class AdminRoomInsertController implements Action {
             vo.setRoom_description(room_description);
             vo.setRoom_image(savedFileName);
 
-            // 4️⃣ DAO 호출
             AdminDAO dao = new AdminDAO(request.getServletContext());
             dao.insertRoom(vo);
 
-            return "redirect:/admin/roomManage.do";
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
-            // 에러 발생 시 에러페이지로 이동
-            request.setAttribute("errorMsg", "객실 등록 중 오류가 발생했습니다.");
-            return "/admin/room/roomManage";
         }
+        return "redirect:/admin/roomManage.do";
     }
 }
