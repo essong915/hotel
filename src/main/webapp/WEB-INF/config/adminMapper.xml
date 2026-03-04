@@ -25,9 +25,16 @@
 	    DELETE FROM room_manage
 	    WHERE room_no = ?
 	</entry>
+	<entry key="deleteRoomImage">
+	    DELETE FROM room_image 
+	    WHERE room_no = ?
+	</entry>
 	<entry key="insertRoom">
-	    INSERT INTO room_manage(room_no,room_name, capacity, room_location, room_description, room_image,created_at) 
-	    VALUES (?,?, ?, ?, ?,?, NOW())
+	    INSERT INTO room_manage(room_no,room_name, capacity, room_location, room_description, created_at) 
+	    VALUES (?,?, ?, ?, ?, NOW())
+	</entry>
+	<entry key="insertRoomImage">
+	    INSERT INTO room_image (room_no, image_path, is_main, display_order, created_at) 
+	    VALUES (?, ?, ?, ?, NOW())
 	</entry>
 </properties>
-

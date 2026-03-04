@@ -61,4 +61,5 @@ public class RoomVO {
 		this.updated_at = updated_at;
 	}
 
+	
 }

@@ -12,7 +12,7 @@
     위치: <input type="text" name="room_location" value="${vo.room_location}"><br>
     룸구성: <textarea name="room_description">${vo.room_description}</textarea><br>
     이미지: <input type="file" name="room_img"><br>
-    <img  src="${pageContext.request.contextPath}/upload/room/${vo.room_image}" width="200">
+<%--     <img  src="${pageContext.request.contextPath}${vo.image_path}" width="200"> --%>
 
     <button type="submit">수정완료</button>
 </form>

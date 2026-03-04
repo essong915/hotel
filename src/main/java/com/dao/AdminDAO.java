@@ -212,7 +212,7 @@ System.out.println("deleteRoomImages실행");
 	    try {
 	        conn = getConnection();
 
-	        String sql = "DELETE FROM room_image WHERE room_no = ?";
+	        String sql = props.getProperty("deleteRoomImage");
 	        ps = conn.prepareStatement(sql);
 	        ps.setInt(1, roomNo);
 
@@ -243,7 +243,6 @@ System.out.println("deleteRoomImages실행");
 	        ps.setString(3, vo.getCapacity());
 	        ps.setString(4, vo.getRoom_location());
 	        ps.setString(5, vo.getRoom_description());
-	        ps.setString(6, vo.getRoom_image());
 
 	        ps.executeUpdate();
 	        commit(conn);
@@ -262,9 +261,8 @@ System.out.println("deleteRoomImages실행");
             String isMain,
             int displayOrder)  {
 		System.out.println("insertRoomImage실행");
-		String sql = "INSERT INTO room_image "
-		+ "(room_no, image_path, is_main, display_order, created_at) "
-		+ "VALUES (?, ?, ?, ?, NOW())";
+		String sql = props.getProperty("insertRoomImage");
+		
 		Connection conn = null;
 		PreparedStatement ps = null;
 		int result = 0;

@@ -63,7 +63,9 @@ public class AdminRoomInsertController implements Action {
             vo.setRoom_location(room_location);
             vo.setRoom_description(room_description);
             vo.setRoom_image(savedFileName);
+
             System.out.println("savedFileName : "+savedFileName);
+            System.out.println("filePart size = " + filePart.getSize());
             AdminDAO dao = new AdminDAO(request.getServletContext());
             dao.insertRoom(vo);
          // 2️⃣ room_image 저장
