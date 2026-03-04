@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
     
- <h2>객실 상세보기</h2>
+ <h2>객실 수정</h2>
 
 <form action="${pageContext.request.contextPath}/admin/roomUpdate.do" method="post">
     <input type="hidden" name="room_no" value="${vo.room_no}">

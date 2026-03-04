@@ -204,6 +204,30 @@ public class AdminDAO {
 	    }
 	}
 	
+	public void deleteRoomImages(int roomNo) {
+System.out.println("deleteRoomImages실행");
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+
+	    try {
+	        conn = getConnection();
+
+	        String sql = "DELETE FROM room_image WHERE room_no = ?";
+	        ps = conn.prepareStatement(sql);
+	        ps.setInt(1, roomNo);
+
+	        ps.executeUpdate();
+	        commit(conn);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        rollback(conn);
+	    } finally {
+	        close(ps);
+	        close(conn);
+	    }
+	}
+	
 	public void insertRoom(RoomVO vo) {
 		System.out.println("insertRoom실행");
 	    Connection conn = null;
@@ -266,4 +290,36 @@ public class AdminDAO {
 		
 		return result;
 		}
+	
+	public List<String> selectRoomImages(int roomNo) {
+
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    List<String> list = new ArrayList<>();
+
+	    try {
+	        conn = getConnection();
+
+	        String sql = "SELECT image_path FROM room_image WHERE room_no = ?";
+	        ps = conn.prepareStatement(sql);
+	        ps.setInt(1, roomNo);
+
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            list.add(rs.getString("image_path"));
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        close(rs);
+	        close(ps);
+	        close(conn);
+	    }
+
+	    return list;
+	}
+	
 }
