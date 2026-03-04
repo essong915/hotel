@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+    <entry key="adminLogin">
+        SELECT user_id, role
+        FROM users
+        WHERE user_id = ?
+        AND password = ?
+    </entry>
+	<entry key="adminRoomManage">
+        SELECT * FROM room_manage
+    </entry>
+    <entry key="updateRoom">
+    UPDATE room_manage
+    SET room_name = ?,
+        capacity = ?,
+        room_location = ?,
+        room_description = ?,
+        updated_at = NOW()
+    WHERE room_no = ?
+	</entry>
+	<entry key="deleteRoom">
+	    DELETE FROM room_manage
+	    WHERE room_no = ?
+	</entry>
+	<entry key="insertRoom">
+	    INSERT INTO room_manage(room_no,room_name, capacity, room_location, room_description, room_image,created_at) 
+	    VALUES (?,?, ?, ?, ?,?, NOW())
+	</entry>
+</properties>
+
