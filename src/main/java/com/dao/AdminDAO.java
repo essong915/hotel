@@ -1,8 +1,8 @@
 package com.dao;
 
 import static com.util.JdbcUtil.close;
-import static com.util.JdbcUtil.getConnection;
 import static com.util.JdbcUtil.commit;
+import static com.util.JdbcUtil.getConnection;
 import static com.util.JdbcUtil.rollback;
 
 import java.io.InputStream;
@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.dto.AdminDTO;
+import com.vo.RoomImageVO;
 import com.vo.RoomVO;
 
 import jakarta.servlet.ServletContext;
@@ -241,6 +242,9 @@ System.out.println("deleteRoomImages실행");
 	        ps.setString(3, vo.getCapacity());
 	        ps.setString(4, vo.getRoom_location());
 	        ps.setString(5, vo.getRoom_description());
+	        ps.setString(6, vo.getUsage_time());
+	        ps.setString(7, vo.getAmenity());
+	        ps.setString(8, vo.getMinibar());
 
 	        ps.executeUpdate();
 	        commit(conn);
@@ -287,12 +291,12 @@ System.out.println("deleteRoomImages실행");
 		return result;
 		}
 	
-	public List<String> selectRoomImages(int roomId) {
+	public List<RoomImageVO> selectRoomImages(int roomId) {
 		System.out.println("selectRoomImages실행");
 	    Connection conn = null;
 	    PreparedStatement ps = null;
 	    ResultSet rs = null;
-	    List<String> list = new ArrayList<>();
+	    List<RoomImageVO> list = new ArrayList<>();
 
 	    try {
 	        conn = getConnection();
@@ -304,7 +308,10 @@ System.out.println("deleteRoomImages실행");
 	        rs = ps.executeQuery();
 
 	        while (rs.next()) {
-	            list.add(rs.getString("image_path"));
+	        	RoomImageVO imageVO = new RoomImageVO();
+	        	imageVO.setImage_path(rs.getString("image_path"));
+	        	
+	            list.add(imageVO);
 	        }
 
 	    } catch (Exception e) {
@@ -314,7 +321,6 @@ System.out.println("deleteRoomImages실행");
 	        close(ps);
 	        close(conn);
 	    }
-
 	    return list;
 	}
 	

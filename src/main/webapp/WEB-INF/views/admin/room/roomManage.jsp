@@ -30,7 +30,7 @@
         <td>${room.room_location}</td>
         <td>${room.room_description}</td>
          <td>
-            <form action="${pageContext.request.contextPath}/admin/roomDetail.do"
+<form action="${pageContext.request.contextPath}/admin/roomDetail.do"
       method="get"
       style="display:inline;">
 

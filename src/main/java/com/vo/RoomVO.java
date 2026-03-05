@@ -8,8 +8,10 @@ public class RoomVO {
     private String capacity;
     private String room_location;
     private String room_description;
-    private String room_image;
-    private Date created_at;
+    private String usage_time;
+    private String amenity;
+    private String minibar;
+	private Date created_at;
     private Date updated_at;
     
 	public int getRoom_id() {
@@ -42,11 +44,23 @@ public class RoomVO {
 	public void setRoom_description(String room_description) {
 		this.room_description = room_description;
 	}
-	public String getRoom_image() {
-		return room_image;
+    public String getUsage_time() {
+		return usage_time;
 	}
-	public void setRoom_image(String room_image) {
-		this.room_image = room_image;
+	public void setUsage_time(String usage_time) {
+		this.usage_time = usage_time;
+	}
+	public String getAmenity() {
+		return amenity;
+	}
+	public void setAmenity(String amenity) {
+		this.amenity = amenity;
+	}
+	public String getMinibar() {
+		return minibar;
+	}
+	public void setMinibar(String minibar) {
+		this.minibar = minibar;
 	}
 	public Date getCreated_at() {
 		return created_at;

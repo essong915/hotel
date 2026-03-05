@@ -24,6 +24,9 @@ public class AdminRoomInsertController implements Action {
             String capacity = request.getParameter("capacity");
             String room_location = request.getParameter("room_location");
             String room_description = request.getParameter("room_description");
+            String usage_time = request.getParameter("usage_time");
+            String amenity = request.getParameter("amenity");
+            String minibar = request.getParameter("minibar");
 
             Part filePart = request.getPart("room_img");
 
@@ -62,7 +65,9 @@ public class AdminRoomInsertController implements Action {
             vo.setCapacity(capacity);
             vo.setRoom_location(room_location);
             vo.setRoom_description(room_description);
-            vo.setRoom_image(savedFileName);
+            vo.setUsage_time(usage_time);
+            vo.setAmenity(amenity);
+            vo.setMinibar(minibar);
 
             System.out.println("savedFileName : "+savedFileName);
             System.out.println("filePart size = " + filePart.getSize());

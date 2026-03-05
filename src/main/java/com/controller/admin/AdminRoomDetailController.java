@@ -1,7 +1,10 @@
 package com.controller.admin;
 
+import java.util.List;
+
 import com.controller.Action;
 import com.dao.AdminDAO;
+import com.vo.RoomImageVO;
 import com.vo.RoomVO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,17 +12,21 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class AdminRoomDetailController implements Action {
 
-    @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) {
+	@Override
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        int roomId = Integer.parseInt(request.getParameter("room_id"));
+		int roomId = Integer.parseInt(request.getParameter("room_id"));
 
-        AdminDAO dao = new AdminDAO(request.getServletContext());
-        RoomVO vo = dao.selectRoomByNo(roomId);  
+		AdminDAO dao = new AdminDAO(request.getServletContext());
 
-        request.setAttribute("vo", vo);
+		RoomVO vo = dao.selectRoomByNo(roomId);
+		List<RoomImageVO> imageVO = dao.selectRoomImages(roomId);
 
-        return "admin/room/roomDetail";
-    }
+		System.out.println("imageVO" + imageVO.get(0).getImage_path());
+
+		request.setAttribute("vo", vo);
+		request.setAttribute("imageVO", imageVO);
+
+		return "admin/room/roomDetail";
+	}
 }
