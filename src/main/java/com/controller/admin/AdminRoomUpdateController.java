@@ -22,8 +22,8 @@ public class AdminRoomUpdateController implements Action {
 
         if (method.equals("GET")) {
 
-            int roomNo = Integer.parseInt(request.getParameter("room_no"));
-            RoomVO room = dao.selectRoomByNo(roomNo);
+            int roomId = Integer.parseInt(request.getParameter("room_id"));
+            RoomVO room = dao.selectRoomByNo(roomId);
 
             request.setAttribute("room", room);
 
@@ -32,14 +32,14 @@ public class AdminRoomUpdateController implements Action {
 
         if (method.equals("POST")) {
         	System.out.println("=== 수정 실행 ===");
-            int roomNo = Integer.parseInt(request.getParameter("room_no"));
+            int roomId = Integer.parseInt(request.getParameter("room_id"));
             String roomName = request.getParameter("room_name");
             String capacity = request.getParameter("capacity");
             String location = request.getParameter("room_location");
             String description = request.getParameter("room_description");
 
             RoomVO vo = new RoomVO();
-            vo.setRoom_no(roomNo);
+            vo.setRoom_id(roomId);
             vo.setRoom_name(roomName);
             vo.setCapacity(capacity);
             vo.setRoom_location(location);

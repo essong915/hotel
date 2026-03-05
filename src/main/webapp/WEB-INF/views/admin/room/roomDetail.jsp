@@ -5,7 +5,7 @@
  <h2>객실 수정</h2>
 
 <form action="${pageContext.request.contextPath}/admin/roomUpdate.do" method="post">
-    <input type="hidden" name="room_no" value="${vo.room_no}">
+    <input type="hidden" name="room_id" value="${vo.room_id}">
 
     객실명: <input type="text" name="room_name" value="${vo.room_name}"><br>
     정원: <input type="text" name="capacity" value="${vo.capacity}"><br>

@@ -19,7 +19,7 @@ public class AdminRoomInsertController implements Action {
 
         try {
 
-            int room_no = Integer.parseInt(request.getParameter("room_no"));
+            int room_id = Integer.parseInt(request.getParameter("room_id"));
             String room_name = request.getParameter("room_name");
             String capacity = request.getParameter("capacity");
             String room_location = request.getParameter("room_location");
@@ -57,7 +57,7 @@ public class AdminRoomInsertController implements Action {
             }
 
             RoomVO vo = new RoomVO();
-            vo.setRoom_no(room_no);
+            vo.setRoom_id(room_id);
             vo.setRoom_name(room_name);
             vo.setCapacity(capacity);
             vo.setRoom_location(room_location);
@@ -74,7 +74,7 @@ public class AdminRoomInsertController implements Action {
                 String imagePath = "/upload/room/" + savedFileName;
 
                 dao.insertRoomImage(
-                        room_no,
+                        room_id,
                         imagePath,
                         "Y",    // 대표이미지
                         1       // 순서

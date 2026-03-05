@@ -13,10 +13,10 @@ public class AdminRoomDetailController implements Action {
     public String execute(HttpServletRequest request,
                           HttpServletResponse response) {
 
-        int roomNo = Integer.parseInt(request.getParameter("room_no"));
+        int roomId = Integer.parseInt(request.getParameter("room_id"));
 
         AdminDAO dao = new AdminDAO(request.getServletContext());
-        RoomVO vo = dao.selectRoomByNo(roomNo);  
+        RoomVO vo = dao.selectRoomByNo(roomId);  
 
         request.setAttribute("vo", vo);
 

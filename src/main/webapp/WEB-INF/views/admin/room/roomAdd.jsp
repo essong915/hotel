@@ -7,7 +7,7 @@
       method="post"
       enctype="multipart/form-data">
 
-    객실번호: <input type="text" name="room_no"><br>
+    객실번호: <input type="text" name="room_id"><br>
     객실명: <input type="text" name="room_name"><br>
     정원: <input type="text" name="capacity"><br>
     위치: <input type="text" name="room_location"><br>

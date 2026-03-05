@@ -17,12 +17,12 @@ public class AdminRoomDeleteController implements Action {
 
         try {
 
-            int room_no = Integer.parseInt(request.getParameter("room_no"));
+            int room_id = Integer.parseInt(request.getParameter("room_id"));
 
             AdminDAO dao = new AdminDAO(request.getServletContext());
 
             // 1️⃣ 해당 객실 이미지 경로 조회
-            List<String> imagePaths = dao.selectRoomImages(room_no);
+            List<String> imagePaths = dao.selectRoomImages(room_id);
 
             // 2️⃣ 실제 파일 삭제
             String uploadPath = "C:/hotelUploads/room";
@@ -40,10 +40,10 @@ public class AdminRoomDeleteController implements Action {
             }
 
             // 3️⃣ room_image 삭제
-            dao.deleteRoomImages(room_no);
+            dao.deleteRoomImages(room_id);
 
             // 4️⃣ room_manage 삭제
-            dao.deleteRoom(room_no);
+            dao.deleteRoom(room_id);
 
         } catch (Exception e) {
             e.printStackTrace();

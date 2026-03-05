@@ -72,7 +72,7 @@ public class AdminDAO {
 	
 	//객실 목록보기
 	public List<RoomVO> selectRoomList() {
-
+		System.out.println("selectRoomList 실행");
 		List<RoomVO> list = new ArrayList<>();
 		Connection conn = null;
         Statement st = null;
@@ -87,12 +87,11 @@ public class AdminDAO {
 
             while(rs.next()) {
                 RoomVO room = new RoomVO();
-                room.setRoom_no(rs.getInt("room_no"));
+                room.setRoom_id(rs.getInt("room_id"));
                 room.setRoom_name(rs.getString("room_name"));
                 room.setCapacity(rs.getString("capacity"));
                 room.setRoom_location(rs.getString("room_location"));
                 room.setRoom_description(rs.getString("room_description"));
-                room.setRoom_image(rs.getString("room_image"));
                 room.setCreated_at(rs.getTimestamp("created_at"));
                 room.setUpdated_at(rs.getTimestamp("updated_at"));
 
@@ -111,8 +110,8 @@ public class AdminDAO {
     }
 	
 	//객실 상세보기
-	public RoomVO selectRoomByNo(int roomNo) {
-
+	public RoomVO selectRoomByNo(int roomId) {
+		System.out.println("selectRoomByNo 실행");
 	    RoomVO vo = null;
 	    Connection conn = null;
 	    PreparedStatement ps = null;
@@ -121,20 +120,19 @@ public class AdminDAO {
 	    try {
 	        conn = getConnection();
 
-	        String sql = "SELECT * FROM room_manage WHERE room_no = ?";
+	        String sql = props.getProperty("selectRoomByNo");
 	        ps = conn.prepareStatement(sql);
-	        ps.setInt(1, roomNo);
+	        ps.setInt(1, roomId);
 
 	        rs = ps.executeQuery();
 
 	        if (rs.next()) {
 	        	vo = new RoomVO();
-	        	vo.setRoom_no(rs.getInt("room_no"));
+	        	vo.setRoom_id(rs.getInt("room_id"));
 	        	vo.setRoom_name(rs.getString("room_name"));
 	        	vo.setCapacity(rs.getString("capacity"));
 	        	vo.setRoom_location(rs.getString("room_location"));
 	        	vo.setRoom_description(rs.getString("room_description"));
-	        	vo.setRoom_image(rs.getString("room_image"));
 	        	vo.setCreated_at(rs.getTimestamp("created_at"));
 	        	vo.setUpdated_at(rs.getTimestamp("updated_at"));
 	        }
@@ -167,7 +165,7 @@ public class AdminDAO {
 	        ps.setString(2, vo.getCapacity()); 
 	        ps.setString(3, vo.getRoom_location());
 	        ps.setString(4, vo.getRoom_description());
-	        ps.setInt(5, vo.getRoom_no());
+	        ps.setInt(5, vo.getRoom_id());
 
 	        int result=ps.executeUpdate();
 	        System.out.println("updateRoom result : "+result);
@@ -181,7 +179,7 @@ public class AdminDAO {
 	    }
 	}
 	
-	public void deleteRoom(int room_no) {
+	public void deleteRoom(int room_id) {
 		System.out.println("deleteRoom실행");
 	    Connection conn = null;
 	    PreparedStatement ps = null;
@@ -191,7 +189,7 @@ public class AdminDAO {
 	        String sql = props.getProperty("deleteRoom");
 	        
 	        ps = conn.prepareStatement(sql);
-	        ps.setInt(1, room_no);
+	        ps.setInt(1, room_id);
 
 	        ps.executeUpdate();
 	        commit(conn);
@@ -238,7 +236,7 @@ System.out.println("deleteRoomImages실행");
 
 	        String sql = props.getProperty("insertRoom");
 	        ps = conn.prepareStatement(sql);
-	        ps.setInt(1, vo.getRoom_no());
+	        ps.setInt(1, vo.getRoom_id());
 	        ps.setString(2, vo.getRoom_name());
 	        ps.setString(3, vo.getCapacity());
 	        ps.setString(4, vo.getRoom_location());
@@ -256,7 +254,7 @@ System.out.println("deleteRoomImages실행");
 	}
 	
 	public int insertRoomImage(
-            int roomNo,
+            int roomId,
             String imagePath,
             String isMain,
             int displayOrder)  {
@@ -271,7 +269,7 @@ System.out.println("deleteRoomImages실행");
 			conn = getConnection();
 			ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, roomNo);
+			ps.setInt(1, roomId);
 			ps.setString(2, imagePath);
 			ps.setString(3, isMain);
 			ps.setInt(4, displayOrder);
@@ -289,8 +287,8 @@ System.out.println("deleteRoomImages실행");
 		return result;
 		}
 	
-	public List<String> selectRoomImages(int roomNo) {
-
+	public List<String> selectRoomImages(int roomId) {
+		System.out.println("selectRoomImages실행");
 	    Connection conn = null;
 	    PreparedStatement ps = null;
 	    ResultSet rs = null;
@@ -299,9 +297,9 @@ System.out.println("deleteRoomImages실행");
 	    try {
 	        conn = getConnection();
 
-	        String sql = "SELECT image_path FROM room_image WHERE room_no = ?";
+	    	String sql = props.getProperty("selectRoomImages");
 	        ps = conn.prepareStatement(sql);
-	        ps.setInt(1, roomNo);
+	        ps.setInt(1, roomId);
 
 	        rs = ps.executeQuery();
 

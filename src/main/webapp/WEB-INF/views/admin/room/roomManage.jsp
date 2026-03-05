@@ -24,7 +24,7 @@
 
 <c:forEach var="room" items="${roomList}">
     <tr>
-        <td>${room.room_no}</td>
+        <td>${room.room_id}</td>
         <td>${room.room_name}</td>
         <td>${room.capacity}</td>
         <td>${room.room_location}</td>
@@ -34,13 +34,13 @@
       method="get"
       style="display:inline;">
 
-    <input type="hidden" name="room_no" value="${room.room_no}">
+    <input type="hidden" name="room_id" value="${room.room_id}">
     <button type="submit">수정</button></form><form action="${pageContext.request.contextPath}/admin/roomDelete.do"
       method="post"
       style="display:inline;"
       onsubmit="return confirm('정말 삭제하시겠습니까?');">
 
-    <input type="hidden" name="room_no" value="${room.room_no}">
+    <input type="hidden" name="room_id" value="${room.room_id}">
     <button type="submit">삭제</button>
 </form>
         </td>
