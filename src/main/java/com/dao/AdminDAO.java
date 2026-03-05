@@ -134,6 +134,9 @@ public class AdminDAO {
 	        	vo.setCapacity(rs.getString("capacity"));
 	        	vo.setRoom_location(rs.getString("room_location"));
 	        	vo.setRoom_description(rs.getString("room_description"));
+	        	vo.setUsage_time(rs.getString("usage_time"));
+	        	vo.setAmenity(rs.getString("amenity"));
+	        	vo.setMinibar(rs.getString("minibar"));
 	        	vo.setCreated_at(rs.getTimestamp("created_at"));
 	        	vo.setUpdated_at(rs.getTimestamp("updated_at"));
 	        }
@@ -166,7 +169,10 @@ public class AdminDAO {
 	        ps.setString(2, vo.getCapacity()); 
 	        ps.setString(3, vo.getRoom_location());
 	        ps.setString(4, vo.getRoom_description());
-	        ps.setInt(5, vo.getRoom_id());
+	        ps.setString(5, vo.getUsage_time());
+	        ps.setString(6, vo.getAmenity());
+	        ps.setString(7, vo.getMinibar());
+	        ps.setInt(8, vo.getRoom_id());
 
 	        int result=ps.executeUpdate();
 	        System.out.println("updateRoom result : "+result);
@@ -214,6 +220,31 @@ System.out.println("deleteRoomImages실행");
 	        String sql = props.getProperty("deleteRoomImage");
 	        ps = conn.prepareStatement(sql);
 	        ps.setInt(1, roomNo);
+
+	        ps.executeUpdate();
+	        commit(conn);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        rollback(conn);
+	    } finally {
+	        close(ps);
+	        close(conn);
+	    }
+	}
+	
+	public void deleteRoomImage(String imagePath) {
+
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+
+	    try {
+
+	        conn = getConnection();
+
+	        String sql = "DELETE FROM room_image WHERE image_path = ?";
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, imagePath);
 
 	        ps.executeUpdate();
 	        commit(conn);

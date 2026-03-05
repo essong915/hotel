@@ -12,6 +12,7 @@ import com.controller.admin.AdminLogoutController;
 import com.controller.admin.AdminRoomAddController;
 import com.controller.admin.AdminRoomDeleteController;
 import com.controller.admin.AdminRoomDetailController;
+import com.controller.admin.AdminRoomImageDeleteController;
 import com.controller.admin.AdminRoomInsertController;
 import com.controller.admin.AdminRoomManageController;
 import com.controller.admin.AdminRoomUpdateController;
@@ -29,6 +30,7 @@ public class HandlerMapper {
 		map.put("/admin/roomManage.do", new AdminRoomManageController());
 		map.put("/admin/logout.do", new AdminLogoutController());
 		map.put("/admin/roomDetail.do", new AdminRoomDetailController());
+		map.put("/admin/deleteRoomImage.do", new AdminRoomImageDeleteController());
 		map.put("/admin/roomUpdate.do", new AdminRoomUpdateController());
 		map.put("/admin/roomDelete.do", new AdminRoomDeleteController());
 		map.put("/admin/roomInsert.do", new AdminRoomInsertController());

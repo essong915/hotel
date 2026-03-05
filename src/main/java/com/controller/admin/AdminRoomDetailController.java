@@ -22,7 +22,6 @@ public class AdminRoomDetailController implements Action {
 		RoomVO vo = dao.selectRoomByNo(roomId);
 		List<RoomImageVO> imageVO = dao.selectRoomImages(roomId);
 
-		System.out.println("imageVO" + imageVO.get(0).getImage_path());
 
 		request.setAttribute("vo", vo);
 		request.setAttribute("imageVO", imageVO);
