@@ -19,6 +19,11 @@
     기존이미지<br>
     <c:forEach var="image" items="${imageVO}">
   	  <img src="${image.image_path}" width="200">
+  	  <input type="radio"
+               name="main_image"
+               value="${image.image_no}"
+               ${image.is_main eq 'Y' ? 'checked' : ''}>
+        대표이미지 /
 	<a href="${pageContext.request.contextPath}/admin/deleteRoomImage.do?room_id=${vo.room_id}&image_path=${image.image_path}">삭제</a><br>
     </c:forEach>
 

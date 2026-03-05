@@ -1,17 +1,17 @@
 package com.vo;
 
 public class RoomImageVO {
-	private int image_id;
+	private int image_no;
     private int room_id;
     private String image_path;
     private String is_main;
     private String display_order;
     
-	public int getImage_id() {
-		return image_id;
+	public int getImage_no() {
+		return image_no;
 	}
-	public void setImage_id(int image_id) {
-		this.image_id = image_id;
+	public void setImage_no(int image_no) {
+		this.image_no = image_no;
 	}
 	public int getRoom_id() {
 		return room_id;

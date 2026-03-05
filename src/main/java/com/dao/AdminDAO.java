@@ -186,6 +186,37 @@ public class AdminDAO {
 	    }
 	}
 	
+	public void updateMainImage(int roomId, int imageId) {
+System.out.println("updateMainImage실행");
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    System.out.println("대표이미지 번호 : " + imageId);
+	    System.out.println("roomId 번호 : " + roomId);
+	    try {
+
+	        conn = getConnection();
+
+	        String sql1 = "UPDATE room_image SET is_main='N' WHERE room_id=?";
+	        ps = conn.prepareStatement(sql1);
+	        ps.setInt(1, roomId);
+	        ps.executeUpdate();
+
+	        String sql2 = "UPDATE room_image SET is_main='Y' WHERE image_no=?";
+	        ps = conn.prepareStatement(sql2);
+	        ps.setInt(1, imageId);
+	        ps.executeUpdate();
+
+	        commit(conn);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        rollback(conn);
+	    } finally {
+	        close(ps);
+	        close(conn);
+	    }
+	}
+	
 	public void deleteRoom(int room_id) {
 		System.out.println("deleteRoom실행");
 	    Connection conn = null;
@@ -340,7 +371,11 @@ System.out.println("deleteRoomImages실행");
 
 	        while (rs.next()) {
 	        	RoomImageVO imageVO = new RoomImageVO();
+	        	imageVO.setImage_no(rs.getInt("image_no"));
+	        	imageVO.setRoom_id(rs.getInt("room_id"));
 	        	imageVO.setImage_path(rs.getString("image_path"));
+	        	imageVO.setIs_main(rs.getString("is_main"));
+	        	imageVO.setDisplay_order(rs.getString("display_order"));
 	        	
 	            list.add(imageVO);
 	        }
