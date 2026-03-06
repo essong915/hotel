@@ -11,17 +11,16 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class AdminRoomManageController implements Action {
 
-    @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) {
+	@Override
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        ServletContext context = request.getServletContext();
+		ServletContext context = request.getServletContext();
 
-        AdminDAO dao = new AdminDAO(context);
-        List<RoomManegeVO> roomList = dao.selectRoomList();
+		AdminDAO dao = new AdminDAO(context);
+		List<RoomManegeVO> roomList = dao.selectRoomList();
 
-        request.setAttribute("roomList", roomList);
+		request.setAttribute("roomList", roomList);
 
-        return "admin/room/roomManage";  // forward
-    }
+		return "admin/room/roomManage"; // forward
+	}
 }

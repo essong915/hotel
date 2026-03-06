@@ -4,7 +4,4 @@
     <entry key="adminLogin">
         SELECT * FROM admin WHERE id=? AND pw=?
     </entry>
-     <entry key="adminRoomManage">
-        SELECT * FROM room_manage
-    </entry>
 </properties>

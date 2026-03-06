@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+	<entry key="selectMainFacility">
+		SELECT
+		f.facility_id,
+		f.facility_name,
+		f.description,
+		fi.image_path
+		FROM hotel_facility f
+		JOIN facility_image fi
+		ON
+		f.facility_id = fi.facility_id
+		WHERE fi.is_main='Y'
+		ORDER BY
+		f.facility_id
+	</entry>
+
+
+	<entry key="selectFacility">
+		SELECT *
+		FROM hotel_facility
+		WHERE facility_id=?
+	</entry>
+
+	<entry key="selectFacilityImages">
+		SELECT *
+		FROM facility_image
+		WHERE facility_id=?
+		ORDER BY
+		display_order
+	</entry>
+
+
+	<entry key="selectFacilityList">
+		SELECT
+		f.facility_id,
+		f.facility_name,
+		f.description,
+		f.location,
+		f.open_time,
+		fi.image_path
+		FROM hotel_facility f
+		LEFT JOIN facility_image fi
+		ON f.facility_id = fi.facility_id
+		AND fi.is_main = 'Y'
+		ORDER BY f.facility_id
+	</entry>
+
+</properties>

@@ -132,3 +132,79 @@ button {
 	border: none;
 	cursor: pointer;
 }
+
+/* ===== 호텔 정보 리스트 css ===== */
+
+.facility-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.facility-header h2 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.facility-add-btn {
+    padding: 8px 16px;
+    background: transparent;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.facility-add-btn:hover {
+    background: #0e0e0e;
+    color: #fff;
+}
+
+.facility-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.facility-table th {
+    background: #0e0e0e;
+    color: #fff;
+    padding: 14px;
+    font-size: 14px;
+}
+
+.facility-table td {
+    padding: 14px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    font-size: 14px;
+}
+
+.facility-table tbody tr:hover {
+    background: #f4f4f4;
+}
+
+.facility-btn-edit {
+    padding: 6px 10px;
+    background: #d4af37;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.facility-btn-delete {
+    padding: 6px 10px;
+    background: #e74c3c;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.facility-empty {
+    text-align: center;
+    padding: 30px;
+    color: #999;
+}
