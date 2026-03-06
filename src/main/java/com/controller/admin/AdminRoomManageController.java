@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.controller.Action;
 import com.dao.AdminDAO;
-import com.vo.RoomVO;
+import com.vo.RoomManegeVO;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,7 +18,7 @@ public class AdminRoomManageController implements Action {
         ServletContext context = request.getServletContext();
 
         AdminDAO dao = new AdminDAO(context);
-        List<RoomVO> roomList = dao.selectRoomList();
+        List<RoomManegeVO> roomList = dao.selectRoomList();
 
         request.setAttribute("roomList", roomList);
 

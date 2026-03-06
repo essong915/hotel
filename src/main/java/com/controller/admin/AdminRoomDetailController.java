@@ -5,7 +5,7 @@ import java.util.List;
 import com.controller.Action;
 import com.dao.AdminDAO;
 import com.vo.RoomImageVO;
-import com.vo.RoomVO;
+import com.vo.RoomManegeVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,7 +19,7 @@ public class AdminRoomDetailController implements Action {
 
 		AdminDAO dao = new AdminDAO(request.getServletContext());
 
-		RoomVO vo = dao.selectRoomByNo(roomId);
+		RoomManegeVO vo = dao.selectRoomByNo(roomId);
 		List<RoomImageVO> imageVO = dao.selectRoomImages(roomId);
 
 

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="com.dao.AdminDAO" %>
-<%@ page import="com.vo.RoomVO" %>
+<%@ page import="com.vo.RoomManegeVO" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 

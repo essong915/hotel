@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import com.controller.Action;
 import com.dao.AdminDAO;
-import com.vo.RoomVO;
+import com.vo.RoomManegeVO;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,7 +32,7 @@ public class AdminRoomUpdateController implements Action {
 		String minibar = request.getParameter("minibar");
 		if (method.equals("GET")) {
 
-			RoomVO room = dao.selectRoomByNo(roomId);
+			RoomManegeVO room = dao.selectRoomByNo(roomId);
 
 			request.setAttribute("room", room);
 
@@ -46,7 +46,7 @@ public class AdminRoomUpdateController implements Action {
 		        System.out.println("=== 수정 실행 ===");
 
 
-		        RoomVO vo = new RoomVO();
+		        RoomManegeVO vo = new RoomManegeVO();
 		        vo.setRoom_id(roomId);
 		        vo.setRoom_name(roomName);
 		        vo.setCapacity(capacity);

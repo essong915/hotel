@@ -16,7 +16,7 @@ import java.util.Properties;
 
 import com.dto.AdminDTO;
 import com.vo.RoomImageVO;
-import com.vo.RoomVO;
+import com.vo.RoomManegeVO;
 
 import jakarta.servlet.ServletContext;
 
@@ -72,9 +72,9 @@ public class AdminDAO {
 	}
 	
 	//객실 목록보기
-	public List<RoomVO> selectRoomList() {
+	public List<RoomManegeVO> selectRoomList() {
 		System.out.println("selectRoomList 실행");
-		List<RoomVO> list = new ArrayList<>();
+		List<RoomManegeVO> list = new ArrayList<>();
 		Connection conn = null;
         Statement st = null;
         ResultSet rs =  null;
@@ -87,7 +87,7 @@ public class AdminDAO {
             rs = st.executeQuery(sql);
 
             while(rs.next()) {
-                RoomVO room = new RoomVO();
+                RoomManegeVO room = new RoomManegeVO();
                 room.setRoom_id(rs.getInt("room_id"));
                 room.setRoom_name(rs.getString("room_name"));
                 room.setCapacity(rs.getString("capacity"));
@@ -111,9 +111,9 @@ public class AdminDAO {
     }
 	
 	//객실 상세보기
-	public RoomVO selectRoomByNo(int roomId) {
+	public RoomManegeVO selectRoomByNo(int roomId) {
 		System.out.println("selectRoomByNo 실행");
-	    RoomVO vo = null;
+	    RoomManegeVO vo = null;
 	    Connection conn = null;
 	    PreparedStatement ps = null;
 	    ResultSet rs = null;
@@ -128,7 +128,7 @@ public class AdminDAO {
 	        rs = ps.executeQuery();
 
 	        if (rs.next()) {
-	        	vo = new RoomVO();
+	        	vo = new RoomManegeVO();
 	        	vo.setRoom_id(rs.getInt("room_id"));
 	        	vo.setRoom_name(rs.getString("room_name"));
 	        	vo.setCapacity(rs.getString("capacity"));
@@ -153,7 +153,7 @@ public class AdminDAO {
 	}
 	
 	//객실 정보 변경
-	public void updateRoom(RoomVO vo) {
+	public void updateRoom(RoomManegeVO vo) {
 		System.out.println("updateRoom 실행");
 	    Connection conn = null;
 	    PreparedStatement ps = null;
@@ -358,7 +358,7 @@ System.out.println("deleteRoomImages실행");
 	    }
 	}
 	
-	public void insertRoom(RoomVO vo) {
+	public void insertRoom(RoomManegeVO vo) {
 		System.out.println("insertRoom실행");
 	    Connection conn = null;
 	    PreparedStatement ps = null;

@@ -2,7 +2,7 @@ package com.vo;
 
 import java.util.Date;
 
-public class RoomVO {
+public class RoomManegeVO {
     private int room_id;
     private String room_name;
     private String capacity;

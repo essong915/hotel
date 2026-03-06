@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import com.controller.Action;
 import com.dao.AdminDAO;
-import com.vo.RoomVO;
+import com.vo.RoomManegeVO;
 
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ public class AdminRoomInsertController implements Action {
             String amenity = request.getParameter("amenity");
             String minibar = request.getParameter("minibar");
 
-            RoomVO vo = new RoomVO();
+            RoomManegeVO vo = new RoomManegeVO();
             vo.setRoom_id(room_id);
             vo.setRoom_name(room_name);
             vo.setCapacity(capacity);
