@@ -187,23 +187,30 @@ public class AdminDAO {
 	}
 	
 	public void updateMainImage(int roomId, int imageId) {
-System.out.println("updateMainImage실행");
+
+	    System.out.println("updateMainImage 실행");
+
 	    Connection conn = null;
 	    PreparedStatement ps = null;
-	    System.out.println("대표이미지 번호 : " + imageId);
-	    System.out.println("roomId 번호 : " + roomId);
+
 	    try {
 
 	        conn = getConnection();
 
-	        String sql1 = "UPDATE room_image SET is_main='N' WHERE room_id=?";
-	        ps = conn.prepareStatement(sql1);
-	        ps.setInt(1, roomId);
-	        ps.executeUpdate();
+	        String sql = """
+	        UPDATE room_image
+	        SET is_main =
+	        CASE
+	            WHEN image_no = ? THEN 'Y'
+	            ELSE 'N'
+	        END
+	        WHERE room_id = ?
+	        """;
 
-	        String sql2 = "UPDATE room_image SET is_main='Y' WHERE image_no=?";
-	        ps = conn.prepareStatement(sql2);
+	        ps = conn.prepareStatement(sql);
 	        ps.setInt(1, imageId);
+	        ps.setInt(2, roomId);
+
 	        ps.executeUpdate();
 
 	        commit(conn);

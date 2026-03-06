@@ -25,6 +25,7 @@
                ${image.is_main eq 'Y' ? 'checked' : ''}>
         대표이미지
         
+        
 	<input type="checkbox"
            name="delete_images"
            value="${image.image_no}">
@@ -74,31 +75,24 @@ function renderPreview() {
             img.src = e.target.result;
             img.width = 200;
 
-            // 대표이미지 radio
-            const radio = document.createElement("input");
-            radio.type = "radio";
-            radio.name = "main_image_new";
-            radio.value = index;
+         // 삭제 체크박스
+            const removeCheck = document.createElement("input");
+            removeCheck.type = "checkbox";
 
-            // 삭제 버튼
-            const removeBtn = document.createElement("button");
-            removeBtn.type = "button";
-            removeBtn.innerText = "❌";
+            removeCheck.onchange = function() {
 
-            removeBtn.onclick = function() {
-
-                selectedFiles.splice(index, 1); // 배열에서 제거
-                renderPreview();                 // preview 다시 그림
-                updateInputFiles();              // input files 업데이트
+                if (this.checked) {
+                    selectedFiles.splice(index, 1);
+                    renderPreview();
+                    updateInputFiles();
+                }
             };
 
             wrapper.appendChild(img);
             wrapper.appendChild(document.createElement("br"));
 
-            wrapper.appendChild(radio);
-            wrapper.appendChild(document.createTextNode(" 대표이미지 "));
-
-            wrapper.appendChild(removeBtn);
+			wrapper.appendChild(removeCheck);
+			wrapper.appendChild(document.createTextNode(" 등록취소"));
 
             preview.appendChild(wrapper);
         };

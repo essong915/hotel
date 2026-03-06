@@ -82,7 +82,7 @@ public class AdminRoomInsertController implements Action {
                     dao.insertRoomImage(
                             room_id,
                             imagePath,
-                            order == 1 ? "Y" : "N",   // 첫번째 이미지만 대표
+                            "N",
                             order
                     );
 

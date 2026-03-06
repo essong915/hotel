@@ -122,19 +122,22 @@ public class AdminRoomUpdateController implements Action {
 
 	                    dao.insertRoomImage(
 	                    		roomId,
-	                            imagePath,
-	                            order == 1 ? "Y" : "N",   // 첫번째 이미지만 대표
-	                            order
-	                    );
+	                    	    imagePath,
+	                    	    "N",
+	                    	    order
+	                    	);
 
-	                    order++;
+	                    	order++;
 	                }
 		        }
 
 		        String mainImage = request.getParameter("main_image");
 		        System.out.println("main_image = " + mainImage);
+		       
 		        if(mainImage != null){
-		            dao.updateMainImage(roomId, Integer.parseInt(mainImage));
+		        	int imageId = Integer.parseInt(mainImage);
+
+		            dao.updateMainImage(roomId, imageId);
 		        }
 		        
 		        
