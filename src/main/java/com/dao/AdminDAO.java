@@ -263,7 +263,69 @@ System.out.println("deleteRoomImages실행");
 	        close(conn);
 	    }
 	}
+	//DB이미지삭제
+	public void deleteRoomImageDB(int imageNo) {
+
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+
+	    try {
+
+	        conn = getConnection();
+
+	        String sql = "DELETE FROM room_image WHERE image_no=?";
+
+	        ps = conn.prepareStatement(sql);
+	        ps.setInt(1, imageNo);
+
+	        ps.executeUpdate();
+
+	        commit(conn);
+
+	    } catch (Exception e) {
+	        rollback(conn);
+	        e.printStackTrace();
+	    } finally {
+	        close(ps);
+	        close(conn);
+	    }
+	}
 	
+	public String getImagePath(int imageNo) {
+
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    String path = null;
+
+	    try {
+
+	        conn = getConnection();
+
+	        String sql = "SELECT image_path FROM room_image WHERE image_no=?";
+
+	        ps = conn.prepareStatement(sql);
+	        ps.setInt(1, imageNo);
+
+	        rs = ps.executeQuery();
+
+	        if (rs.next()) {
+	            path = rs.getString("image_path");
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        close(rs);
+	        close(ps);
+	        close(conn);
+	    }
+
+	    return path;
+	}
+	
+	//서버 이미지 삭제
 	public void deleteRoomImage(String imagePath) {
 
 	    Connection conn = null;

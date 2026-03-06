@@ -14,7 +14,7 @@
     이용시간: <input type="text" name="usage_time" value="${vo.usage_time}"><br>
     어매니티: <input type="text" name="amenity" value="${vo.amenity}"><br>
     미니바: <input type="text" name="minibar" value="${vo.minibar}"><br>
-    이미지: <input type="file" name="room_img" multiple onchange="previewImages(event)"><br>
+    이미지: <input type="file" id="room_img" name="room_img" id="room_img" multiple onchange="previewImages(event)"><br>
     <div id="preview"></div><hr>
     기존이미지<br>
     <c:forEach var="image" items="${imageVO}">
@@ -23,36 +23,100 @@
                name="main_image"
                value="${image.image_no}"
                ${image.is_main eq 'Y' ? 'checked' : ''}>
-        대표이미지 /
-	<a href="${pageContext.request.contextPath}/admin/deleteRoomImage.do?room_id=${vo.room_id}&image_path=${image.image_path}">삭제</a><br>
+        대표이미지
+        
+	<input type="checkbox"
+           name="delete_images"
+           value="${image.image_no}">
+    	삭제<br>
     </c:forEach>
 
-    <button type="submit">수정완료</button>
+    <button type="submit">수정</button>
+    <button type="button"
+onclick="location.href='${pageContext.request.contextPath}/admin/roomManage.do'">
+뒤로가기
+</button>
 </form>
 
 <script>
+
+let selectedFiles = [];
+
 function previewImages(event) {
 
     const preview = document.getElementById("preview");
-    preview.innerHTML = "";   // 기존 preview 초기화
+    const input = document.getElementById("room_img");
 
-    const files = event.target.files;
+    const files = Array.from(event.target.files);
 
-    for (let i = 0; i < files.length; i++) {
+    // 기존 파일 + 새 파일 합치기
+    selectedFiles = selectedFiles.concat(files);
+
+    renderPreview();
+    updateInputFiles();
+}
+
+function renderPreview() {
+
+    const preview = document.getElementById("preview");
+    preview.innerHTML = "";
+
+    selectedFiles.forEach((file, index) => {
 
         const reader = new FileReader();
 
         reader.onload = function(e) {
 
+            const wrapper = document.createElement("div");
+            wrapper.style.marginBottom = "10px";
+
             const img = document.createElement("img");
             img.src = e.target.result;
             img.width = 200;
-            img.style.margin = "5px";
 
-            preview.appendChild(img);
-        }
+            // 대표이미지 radio
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "main_image_new";
+            radio.value = index;
 
-        reader.readAsDataURL(files[i]);
-    }
+            // 삭제 버튼
+            const removeBtn = document.createElement("button");
+            removeBtn.type = "button";
+            removeBtn.innerText = "❌";
+
+            removeBtn.onclick = function() {
+
+                selectedFiles.splice(index, 1); // 배열에서 제거
+                renderPreview();                 // preview 다시 그림
+                updateInputFiles();              // input files 업데이트
+            };
+
+            wrapper.appendChild(img);
+            wrapper.appendChild(document.createElement("br"));
+
+            wrapper.appendChild(radio);
+            wrapper.appendChild(document.createTextNode(" 대표이미지 "));
+
+            wrapper.appendChild(removeBtn);
+
+            preview.appendChild(wrapper);
+        };
+
+        reader.readAsDataURL(file);
+    });
 }
+
+function updateInputFiles() {
+
+    const input = document.getElementById("room_img");
+    const dataTransfer = new DataTransfer();
+
+    selectedFiles.forEach(file => {
+        dataTransfer.items.add(file);
+    });
+
+    input.files = dataTransfer.files;
+}
+
 </script>

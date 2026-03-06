@@ -22,9 +22,16 @@ public class AdminRoomUpdateController implements Action {
 		ServletContext context = request.getServletContext();
 		AdminDAO dao = new AdminDAO(context);
 
+		int roomId = Integer.parseInt(request.getParameter("room_id"));
+		String roomName = request.getParameter("room_name");
+		String capacity = request.getParameter("capacity");
+		String location = request.getParameter("room_location");
+		String description = request.getParameter("room_description");
+		String usage_time = request.getParameter("usage_time");
+		String amenity = request.getParameter("amenity");
+		String minibar = request.getParameter("minibar");
 		if (method.equals("GET")) {
 
-			int roomId = Integer.parseInt(request.getParameter("room_id"));
 			RoomVO room = dao.selectRoomByNo(roomId);
 
 			request.setAttribute("room", room);
@@ -38,14 +45,6 @@ public class AdminRoomUpdateController implements Action {
 
 		        System.out.println("=== 수정 실행 ===");
 
-		        int roomId = Integer.parseInt(request.getParameter("room_id"));
-		        String roomName = request.getParameter("room_name");
-		        String capacity = request.getParameter("capacity");
-		        String location = request.getParameter("room_location");
-		        String description = request.getParameter("room_description");
-		        String usage_time = request.getParameter("usage_time");
-		        String amenity = request.getParameter("amenity");
-		        String minibar = request.getParameter("minibar");
 
 		        RoomVO vo = new RoomVO();
 		        vo.setRoom_id(roomId);
@@ -59,6 +58,37 @@ public class AdminRoomUpdateController implements Action {
 
 		        dao.updateRoom(vo);
 
+		     // 삭제할 이미지 번호 배열
+		        String[] deleteImages = request.getParameterValues("delete_images");
+
+		        if (deleteImages != null) {
+
+		            for (String imgId : deleteImages) {
+
+		                int imageNo = Integer.parseInt(imgId);
+
+		                // 1️⃣ DB에서 이미지 경로 가져오기
+		                String imagePath = dao.getImagePath(imageNo);
+
+		                // 2️⃣ 실제 파일 삭제
+		                if (imagePath != null) {
+
+		                    String uploadPath = "C:/hotelUploads/room";
+
+		                    File file = new File(uploadPath, new File(imagePath).getName());
+
+		                    if (file.exists()) {
+		                        file.delete();
+		                        System.out.println("파일 삭제 완료 : " + file.getName());
+		                    }
+		                }
+
+		                // 3️⃣ DB 삭제
+		                dao.deleteRoomImageDB(imageNo);
+		            }
+		        }
+		        
+		        
 		        Collection<Part> parts = request.getParts();
 
 		        String uploadPath = "C:/hotelUploads/room";
@@ -112,7 +142,7 @@ public class AdminRoomUpdateController implements Action {
 		        e.printStackTrace();
 		    }
 
-		    return "redirect:/admin/roomManage.do";
+		    return "redirect:/admin/roomDetail.do?room_id=" + roomId;
 		}
 
 		return null;
